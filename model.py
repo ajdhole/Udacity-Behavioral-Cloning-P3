@@ -69,7 +69,11 @@ def generate_batch(X_train, y_train, batch_size=64):
             angles[i] = angle
         yield images, angles
 
-
+  """  for sample in samples:
+        angle = abs(float(sample[3]))
+        if angle < del_angle:
+            if np.random.random() < del_rate:
+                continue"""
 def resize(image):
     """
     Returns an image resized to match the input size of the network.
