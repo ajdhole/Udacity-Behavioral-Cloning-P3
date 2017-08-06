@@ -11,7 +11,6 @@ import sklearn
 from sklearn.utils import shuffle
 from keras.callbacks import ModelCheckpoint
 from keras.optimizers import Adam
-from keras.layers.normalization import BatchNormalization
 from sklearn.model_selection import train_test_split
 
 
@@ -51,8 +50,10 @@ def generator(path, samples, batch_size=32):
                     name = path + 'IMG/'+ batch_sample[image_nb].split('/')[-1]
                     image = cv2.cvtColor(cv2.imread(name), cv2.COLOR_BGR2RGB)
                     image = random_brightness(image)
+                    # added +/- 0.27 angle offset for left/right images
                     shift_dict = {0: 0, 1: 0.27, 2: -0.27}
                     angle = float(batch_sample[3]) + shift_dict.get(image_nb, "error")
+                    
                     if angle < del_angle: # to ignore zero steering angle data
                         if np.random.random() < del_rate:
                             continue
@@ -63,7 +64,6 @@ def generator(path, samples, batch_size=32):
                     images.append(image)
                     angles.append(angle)
 
-            # trim image to only see section with road
             X_train = np.array(images)
             y_train = np.array(angles)
             
@@ -81,12 +81,12 @@ train_samples, validation_samples = train_test_split(samples, test_size=0.2)
 train_generator = generator(path, train_samples, batch_size=32)
 validation_generator = generator(path, validation_samples, batch_size=32)
 
-row, col, ch =160, 320, 3  # Trimmed image format
-
+# Resize images as required for network.
 def resize_im(x):
     from keras.backend import tf
     return tf.image.resize_images(x, (66, 160))
 
+#NVIDIA Model
 model = Sequential()
 model.add(Cropping2D(cropping=((70,20), (0,0)), input_shape=(160,320,3)))
 model.add(Lambda(lambda x: x / 127.5 - 1))
