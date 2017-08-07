@@ -92,13 +92,13 @@ model = Sequential()
 model.add(Cropping2D(cropping=((70,20), (0,0)), input_shape=(160,320,3))) # Cropping images to delete sky and car hood area.
 model.add(Lambda(lambda x: x / 127.5 - 1)) # image normalization function
 model.add(Lambda(resize_im)) # resizing images.
-
+# 5x5 filter used with relu activation for introducing Nonlinearity. 
 model.add(Conv2D(24, 5, 5, activation='elu', subsample=(2, 2)))
 model.add(Conv2D(36, 5, 5, activation='elu', subsample=(2, 2)))
 model.add(Conv2D(48, 5, 5, activation='elu', subsample=(2, 2)))
 model.add(Conv2D(64, 3, 3, activation='elu'))
 model.add(Conv2D(64, 3, 3, activation='elu'))
-model.add(Dropout(0.5))
+model.add(Dropout(0.5)) # droupout with 50% keep prob added to reduce overfitting.
 model.add(Flatten())
 model.add(Dense(100, activation='elu'))
 model.add(Dense(50, activation='elu'))
