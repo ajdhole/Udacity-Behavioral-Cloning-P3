@@ -89,9 +89,9 @@ def resize_im(x):
 
 #NVIDIA Model
 model = Sequential()
-model.add(Cropping2D(cropping=((70,20), (0,0)), input_shape=(160,320,3)))
-model.add(Lambda(lambda x: x / 127.5 - 1))
-model.add(Lambda(resize_im))
+model.add(Cropping2D(cropping=((70,20), (0,0)), input_shape=(160,320,3))) # Cropping images to delete sky and car hood area.
+model.add(Lambda(lambda x: x / 127.5 - 1)) # image normalization function
+model.add(Lambda(resize_im)) # resizing images.
 
 model.add(Conv2D(24, 5, 5, activation='elu', subsample=(2, 2)))
 model.add(Conv2D(36, 5, 5, activation='elu', subsample=(2, 2)))
@@ -109,8 +109,8 @@ model.summary()
 # Checkpoint added to select best model in no. of epochs.
 checkpoint = ModelCheckpoint('model-{epoch:03d}.h5', monitor='val_loss', verbose=0, save_best_only='true' , mode='auto')
 
+# Complie model with mean squared error losss function and ada optimizer.
 model.compile(loss='mse', optimizer='adam')
-
 
 model.fit_generator(train_generator, samples_per_epoch = len(train_samples), validation_data=validation_generator, nb_val_samples=len(validation_samples), nb_epoch=5, callbacks=[checkpoint], verbose=1)
 model.save('model.h5')
