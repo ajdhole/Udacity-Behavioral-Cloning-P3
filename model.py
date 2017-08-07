@@ -18,12 +18,13 @@ def random_brightness(image):
     """
     Randomly adjust brightness of the image.
     """
-    # HSV (Hue, Saturation, Value) is also called HSB ('B' for Brightness).
-    hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HLS)
+    # HLS (Hue, Lightness, saturation).
+    hls = cv2.cvtColor(image, cv2.COLOR_RGB2HLS)
     ratio = 1.0 + 0.4 * (np.random.rand() - 0.5)
-    hsv[:,:,2] =  hsv[:,:,2] * ratio
-    return cv2.cvtColor(hsv, cv2.COLOR_HLS2RGB)
-# Loading images
+    hls[:,:,2] =  hls[:,:,2] * ratio
+    return cv2.cvtColor(hls, cv2.COLOR_HLS2RGB)
+
+# Defining image loading function.
 def get_driving_log(path):
     lines = []
     with open(path + 'driving_log.csv') as csvfile:
