@@ -21,8 +21,8 @@ The goals / steps of this project are the following:
 [image1]: ./examples/Model_Architecture.png "Model Visualization"
 [image2]: ./examples/center-left-right_samples.png "Grayscaling"
 [image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
+[image4]: ./Track_1.mp4 "Track 1 Testing"
+[image5]: ./examples/MSE_Loss.png "Recovery Image"
 [image6]: ./examples/placeholder_small.png "Normal Image"
 [image7]: ./examples/flipped_samples.png "Flipped Image"
 
@@ -58,7 +58,9 @@ My first step was to use a convolution neural network model similar to the NVIDI
 My model consists of a convolution neural network with 5x5 filter sizes and depths between 24 and 48 (model.py lines 96-98) and 3x3 filter sizes and depth 64 (model.py lines 99-100)
 
 The model includes ELU layers to introduce nonlinearity, and the data is normalized in the model using a Keras lambda layer (code line 93). 
+
 Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
+
 ![alt text][image1]
 
 #### 2. Attempts to reduce overfitting in the model
@@ -111,21 +113,64 @@ To capture good driving behavior, I first recorded two laps on track one using c
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
 
 ![alt text][image3]
-![alt text][image4]
-![alt text][image5]
 
 Then I repeated this process on track two in order to get more data points.
 
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
+To augment the data sat, I also flipped images and angles thinking that this would generate additional data with single run on track, like running car on mirrored track and helps For example, here is an image that has then been flipped:
 
 ![alt text][image6]
 ![alt text][image7]
 
 Etc ....
 
-After the collection process, I had X number of data points. I then preprocessed this data by ...
-
+After the data collection process, I had 47036 number of data points. I then preprocessed this data by image augumentation for random brightness and image flipping as suggested in class video.
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+### 4. Model Training 
+
+Model.fit_generator used to train model, sample per epochs was equal to total no. of training dataset, Model train for 5 epochs. Below are the summery for loss per epoches:
+
+Epoch 1/5
+
+47040/47036 [==============================] - 546s - loss: 0.0846 - val_loss: 0.0674
+
+Epoch 2/5
+
+47040/47036 [==============================] - 617s - loss: 0.0628 - val_loss: 0.0532
+
+Epoch 3/5
+
+47040/47036 [==============================] - 526s - loss: 0.0569 - val_loss: 0.0526
+
+Epoch 4/5
+
+47040/47036 [==============================] - 526s - loss: 0.0508 - val_loss: 0.0498
+
+Epoch 5/5
+
+47040/47036 [==============================] - 554s - loss: 0.0451 - val_loss: 0.0420
+
+Also Ploted result for MSE loss per epoches, as shown below:
+
+![alt text][image5]
+
+### 4. Testing model on Udacity Simulator.
+
+The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track like spots at sharp turn, also near verticle post, to improve the driving behavior in these cases, I have increased the number of images at this place also increase cropping area to keep image only related to road area.
+
+To test and record video of training model on Track 1 in udacity simulator following command used in terminal
+
+```sh
+python drive.py model.h5 Track_1
+```
+![alt text][(https://img.youtube.com/vi/a20RAoltgNM/0.jpg)]](https://www.youtube.com/watch?v=a20RAoltgNM)
+
+Same procedure repeated for Track 2 with small change in cammand (replace Track_1 with Track_2) to run and record video on Track 2.
+
+```sh
+python drive.py model.h5 Track_2
+```
+At the end of the process, the vehicle is able to drive autonomously around both tracks without leaving the road.
+
+
