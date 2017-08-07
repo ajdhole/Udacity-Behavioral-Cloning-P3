@@ -124,8 +124,7 @@ To test and record video of training model on Track 1 in udacity simulator follo
 ```sh
 python drive.py model.h5 Track_1
 ```
-![alt text][(https://img.youtube.com/vi/a20RAoltgNM/0.jpg)]](https://youtu.be/a20RAoltgNM)
-[![Alt text for your video](https://img.youtube.com/vi/a20RAoltgNM/0.jpg)](https://youtu.be/a20RAoltgNM)
+[![Alt text for your video](https://img.youtube.com/vi/v7ro-Z6bZgM/0.jpg)](https://youtu.be/v7ro-Z6bZgM)
 
 
 Same procedure repeated for Track 2 with small change in cammand (replace Track_1 with Track_2) to run and record video on Track 2.
@@ -133,6 +132,8 @@ Same procedure repeated for Track 2 with small change in cammand (replace Track_
 ```sh
 python drive.py model.h5 Track_2
 ```
+[![Alt text for your video](https://img.youtube.com/vi/a20RAoltgNM/0.jpg)](https://youtu.be/a20RAoltgNM)
+
 At the end of the process, the vehicle is able to drive autonomously around both tracks without leaving the road.
 
 
