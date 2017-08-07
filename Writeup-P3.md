@@ -19,7 +19,7 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./examples/Model_Architecture.png "Model Visualization"
-[image2]: ./examples/center-left-right_samples.png "Grayscaling"
+[image2]: ./examples/center-left-right_samples.png "center-left-right Image"
 [image3]: ./examples/placeholder_small.png "Recovery Image"
 [image4]: ./Track_1.mp4 "Track 1 Testing"
 [image5]: ./examples/MSE_Loss.png "Recovery Image"
@@ -106,26 +106,17 @@ Here is a visualization of the architecture (note: visualizing the architecture 
 
 #### 3. Creation of the Training Set & Training Process
 
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
-
+To capture good driving behavior, I first recorded two laps on track one in both direction to generalize model properly but this data was not enough to train car for Track two, so to have more images for track two I have captured images from Track 2 also with additional data at critical areas such as sharp turning and at places where car leave track in earlier run. Here is an example image of center, left and right camera:
 ![alt text][image2]
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
-
-![alt text][image3]
-
-Then I repeated this process on track two in order to get more data points.
-
 To augment the data sat, I also flipped images and angles thinking that this would generate additional data with single run on track, like running car on mirrored track and helps For example, here is an image that has then been flipped:
-
-![alt text][image6]
 ![alt text][image7]
 
-Etc ....
 
 After the data collection process, I had 47036 number of data points. I then preprocessed this data by image augumentation for random brightness and image flipping as suggested in class video.
 
-I finally randomly shuffled the data set and put 20% of the data into a validation set. 
+In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set.
+I finally randomly shuffled the data set with put 20% of the data into a validation set. 
 
 ### 4. Model Training 
 
