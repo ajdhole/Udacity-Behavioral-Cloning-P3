@@ -20,7 +20,7 @@ The goals / steps of this project are the following:
 
 [image1]: ./examples/Model_Architecture.png "Model Visualization"
 [image2]: ./examples/center-left-right_samples.png "center-left-right Image"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
+[image3]: ./examples/placeholder_small.png "MSE_Vs_Epochs"
 [image4]: ./Track_1.mp4 "Track 1 Testing"
 [image5]: ./examples/MSE_Loss.png "Recovery Image"
 [image6]: ./examples/placeholder_small.png "Normal Image"
