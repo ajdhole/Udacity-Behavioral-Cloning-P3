@@ -125,6 +125,8 @@ To test and record video of training model on Track 1 in udacity simulator follo
 python drive.py model.h5 Track_1
 ```
 ![alt text][(https://img.youtube.com/vi/a20RAoltgNM/0.jpg)]](https://youtu.be/a20RAoltgNM)
+[![Alt text for your video](https://img.youtube.com/vi/a20RAoltgNM/0.jpg)](https://youtu.be/a20RAoltgNM)
+
 
 Same procedure repeated for Track 2 with small change in cammand (replace Track_1 with Track_2) to run and record video on Track 2.
 
