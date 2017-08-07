@@ -73,40 +73,9 @@ The model was trained and validated on different data sets to ensure that the mo
 
 The model used an adam optimizer, so the learning rate was not tuned manually (model.py code line line 113).
 
-#### 4. Appropriate training data
-
-Training data was chosen to keep the vehicle driving on the road. I used a combination of Track 1 driving in both direction, Track 2 data multiple loop to generalize data and additional training at troubled area like sharp turn where verticle post avilable, recovering from the left and right sides of the road, and additional training at bridge for track 1, Also I have deleted 50% straight line steering data (model.py code line line 59), to balance data.
-
-### Model Architecture and Training Strategy
-
-#### 1. Solution Design Approach
-
-The overall strategy for deriving a model architecture was to ...
-
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
-
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
-
-To combat the overfitting, I modified the model so that ...
-
-Then I ... 
-
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
-
-At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
-
-#### 2. Final Model Architecture
-
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
-
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
-
-![alt text][image1]
-
-
 #### 3. Creation of the Training Set & Training Process
 
-To capture good driving behavior, I first recorded two laps on track one in both direction to generalize model properly but this data was not enough to train car for Track two, so to have more images for track two I have captured images from Track 2 also with additional data at critical areas such as sharp turning and at places where car leave track in earlier run. Here is an example image of center, left and right camera:
+Training data was chosen to keep the vehicle driving on the road. I used a combination of Track 1 driving in both direction, Track 2 data multiple loop to generalize data and additional training at troubled area like sharp turn where verticle post avilable, recovering from the left and right sides of the road, and additional training at bridge for track 1, Also I have deleted 50% straight line steering data (model.py code line line 59), to balance data. Here is an example image of center, left and right camera:
 ![alt text][image2]
 
 To augment the data sat, I also flipped images and angles thinking that this would generate additional data with single run on track, like running car on mirrored track and helps For example, here is an image that has then been flipped:
