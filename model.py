@@ -13,7 +13,7 @@ from keras.callbacks import ModelCheckpoint
 from keras.optimizers import Adam
 from sklearn.model_selection import train_test_split
 
-
+# Image augumentation by adding random brightness.
 def random_brightness(image):
     """
     Randomly adjust brightness of the image.
@@ -23,7 +23,7 @@ def random_brightness(image):
     ratio = 1.0 + 0.4 * (np.random.rand() - 0.5)
     hsv[:,:,2] =  hsv[:,:,2] * ratio
     return cv2.cvtColor(hsv, cv2.COLOR_HLS2RGB)
-
+# Loading images
 def get_driving_log(path):
     lines = []
     with open(path + 'driving_log.csv') as csvfile:
@@ -33,8 +33,8 @@ def get_driving_log(path):
             
     return lines
 
-del_angle = 0.001
-del_rate = 0.5
+del_angle = 0.001 # to delete less than 0.001 steering angle images, i.e. straight line image data.
+del_rate = 0.5 # to delete 50% straight line image data.
 
 def generator(path, samples, batch_size=32):
     num_samples = len(samples)
@@ -57,7 +57,7 @@ def generator(path, samples, batch_size=32):
                     if angle < del_angle: # to ignore zero steering angle data
                         if np.random.random() < del_rate:
                             continue
-
+                    # Image augumentation by flipping images and change in corrosponding steering angle.
                     images.append(np.fliplr(image))
                     angles.append(-angle)
                 
@@ -95,9 +95,7 @@ model.add(Lambda(resize_im))
 model.add(Conv2D(24, 5, 5, activation='elu', subsample=(2, 2)))
 model.add(Conv2D(36, 5, 5, activation='elu', subsample=(2, 2)))
 model.add(Conv2D(48, 5, 5, activation='elu', subsample=(2, 2)))
-
 model.add(Conv2D(64, 3, 3, activation='elu'))
-
 model.add(Conv2D(64, 3, 3, activation='elu'))
 model.add(Dropout(0.5))
 model.add(Flatten())
@@ -107,6 +105,7 @@ model.add(Dense(10, activation='elu'))
 model.add(Dense(1))
 model.summary()
 
+# Checkpoint added to select best model in no. of epochs.
 checkpoint = ModelCheckpoint('model-{epoch:03d}.h5', monitor='val_loss', verbose=0, save_best_only='true' , mode='auto')
 
 model.compile(loss='mse', optimizer='adam')
